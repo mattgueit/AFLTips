@@ -8,5 +8,5 @@ A web app for my partner and I to enter our AFL (footy) tips in.
 * Written using the Blazor Framework.
 
 ### Motive
-More exposure to front-end development.
-First experience with Blazor, become proficient.
+* More exposure to front-end development.
+* First experience with Blazor, become proficient.
