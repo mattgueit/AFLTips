@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace AFLTips.Data
 {
-    public class WeatherForecastService
+    public class ResultService
     {
         private static readonly string[] Summaries = new[]
         {

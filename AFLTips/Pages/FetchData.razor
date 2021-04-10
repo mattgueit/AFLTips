@@ -1,7 +1,8 @@
 ﻿@page "/fetchdata"
 
 @using AFLTips.Data
-@inject WeatherForecastService ForecastService
+@inject ResultService _resultService
+
 
 <h1>Weather forecast</h1>
 
@@ -41,6 +42,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        forecasts = await _resultService.GetForecastAsync(DateTime.Now);
     }
 }

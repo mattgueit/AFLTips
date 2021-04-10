@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Team]
+(
+	[TeamId]	INT			NOT NULL,
+	[TeamAbbv]	VARCHAR(3)	NOT NULL,
+	[TeamName]	VARCHAR(50)	NOT NULL,
+
+	CONSTRAINT [PK_TeamId] PRIMARY KEY CLUSTERED ([TeamId] ASC)
+)
