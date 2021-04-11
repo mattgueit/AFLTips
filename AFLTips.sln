@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database.AFLTips", "Database.AFLTips\Database.AFLTips.sqlproj", "{BEAEF864-E680-41AF-B760-8BA5B401C6FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wasm.AFLTips", "Wasm.AFLTips\Wasm.AFLTips.csproj", "{7C72FF1A-AC0B-4B9D-BC14-9523EB73451F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wasm.AFLTips", "Wasm.AFLTips\Wasm.AFLTips.csproj", "{6AF85086-1D4F-40D2-B34D-F389C9A99030}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +19,10 @@ Global
 		{BEAEF864-E680-41AF-B760-8BA5B401C6FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEAEF864-E680-41AF-B760-8BA5B401C6FB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BEAEF864-E680-41AF-B760-8BA5B401C6FB}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{7C72FF1A-AC0B-4B9D-BC14-9523EB73451F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C72FF1A-AC0B-4B9D-BC14-9523EB73451F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C72FF1A-AC0B-4B9D-BC14-9523EB73451F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C72FF1A-AC0B-4B9D-BC14-9523EB73451F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AF85086-1D4F-40D2-B34D-F389C9A99030}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AF85086-1D4F-40D2-B34D-F389C9A99030}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AF85086-1D4F-40D2-B34D-F389C9A99030}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AF85086-1D4F-40D2-B34D-F389C9A99030}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
