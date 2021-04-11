@@ -7,5 +7,7 @@
 	[MatchDate]		DATETIME		NOT NULL,
 	[Venue]			VARCHAR(100)	NOT NULL,
 
-	CONSTRAINT [PK_MatchId] PRIMARY KEY CLUSTERED ([MatchId] ASC)
+	CONSTRAINT [PK_Match_MatchId]		PRIMARY KEY CLUSTERED ([MatchId] ASC),
+	CONSTRAINT [FK_Match_HomeTeamId]	FOREIGN KEY ([HomeTeamId]) REFERENCES [dbo].[Team](TeamId),
+	CONSTRAINT [FK_Match_AwayTeamId]	FOREIGN KEY ([AwayTeamId]) REFERENCES [dbo].[Team](TeamId)
 )
