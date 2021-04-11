@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:56352",
-      "sslPort": 44384
+      "applicationUrl": "http://localhost:28021",
+      "sslPort": 44341
     }
   },
   "profiles": {
@@ -16,7 +16,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Wasm.AFLTips": {
+    "AFLTips": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

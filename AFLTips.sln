@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database.AFLTips", "Database.AFLTips\Database.AFLTips.sqlproj", "{BEAEF864-E680-41AF-B760-8BA5B401C6FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AFLTips.Server", "AFLTips\Server\AFLTips.Server.csproj", "{0844C383-183F-422C-AF0A-3C4E4F1E6A7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wasm.AFLTips", "Wasm.AFLTips\Wasm.AFLTips.csproj", "{6AF85086-1D4F-40D2-B34D-F389C9A99030}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AFLTips.Client", "AFLTips\Client\AFLTips.Client.csproj", "{D370CF07-81F2-4E5B-9270-F33287931043}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AFLTips.Shared", "AFLTips\Shared\AFLTips.Shared.csproj", "{5A43A91A-FF95-40B3-B14C-E98B329FF82E}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "AFLTips.Database", "AFLTips.Database\AFLTips.Database.sqlproj", "{102B3576-FEEF-41B4-B126-6A604DC2754B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,16 +17,24 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BEAEF864-E680-41AF-B760-8BA5B401C6FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BEAEF864-E680-41AF-B760-8BA5B401C6FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BEAEF864-E680-41AF-B760-8BA5B401C6FB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{BEAEF864-E680-41AF-B760-8BA5B401C6FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BEAEF864-E680-41AF-B760-8BA5B401C6FB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BEAEF864-E680-41AF-B760-8BA5B401C6FB}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{6AF85086-1D4F-40D2-B34D-F389C9A99030}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6AF85086-1D4F-40D2-B34D-F389C9A99030}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6AF85086-1D4F-40D2-B34D-F389C9A99030}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6AF85086-1D4F-40D2-B34D-F389C9A99030}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0844C383-183F-422C-AF0A-3C4E4F1E6A7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0844C383-183F-422C-AF0A-3C4E4F1E6A7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0844C383-183F-422C-AF0A-3C4E4F1E6A7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0844C383-183F-422C-AF0A-3C4E4F1E6A7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D370CF07-81F2-4E5B-9270-F33287931043}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D370CF07-81F2-4E5B-9270-F33287931043}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D370CF07-81F2-4E5B-9270-F33287931043}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D370CF07-81F2-4E5B-9270-F33287931043}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A43A91A-FF95-40B3-B14C-E98B329FF82E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A43A91A-FF95-40B3-B14C-E98B329FF82E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A43A91A-FF95-40B3-B14C-E98B329FF82E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A43A91A-FF95-40B3-B14C-E98B329FF82E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{102B3576-FEEF-41B4-B126-6A604DC2754B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{102B3576-FEEF-41B4-B126-6A604DC2754B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{102B3576-FEEF-41B4-B126-6A604DC2754B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{102B3576-FEEF-41B4-B126-6A604DC2754B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{102B3576-FEEF-41B4-B126-6A604DC2754B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{102B3576-FEEF-41B4-B126-6A604DC2754B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
