@@ -10,12 +10,29 @@
 }
 else
 {
-    <ul>
+    <table>
+            <tr>
+                <th/>
+                <th/>
+                <th style="text-align: center">W</th>
+                <th style="text-align: center">D</th>
+                <th style="text-align: center">L</th>
+                <th style="text-align: center">Pts</th>
+                <th style="text-align: center">%</th>
+            </tr>
         @foreach (var position in ladder.LadderPositions)
         {
-            <li>@position.TeamName, @position.Points</li>
+            <tr>
+                <th>@position.Rank</th>
+                <th><img src="/images/team-logos/@(position.TeamId).png" alt="Image" width="50" height="50"> @position.TeamName</th>
+                <th>@position.Wins</th>
+                <th>@position.Draws</th>
+                <th>@position.Losses</th>
+                <th>@position.Points</th>
+                <th>@position.Percentage</th>
+            </tr>
         }
-    </ul>
+    </table>
 }
 
 @code {
