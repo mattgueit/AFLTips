@@ -27,9 +27,11 @@ namespace AFLTips.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddMemoryCache();
 
             services.AddTransient<IPlayerService, PlayerService>();
             services.AddTransient<IPlayerRepository, PlayerRepository>();
+            services.AddTransient<ILadderService, LadderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

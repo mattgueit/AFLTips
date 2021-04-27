@@ -1,3 +1,28 @@
 ﻿@page "/ladder"
+@inject HttpClient Http
+@using data = AFLTips.Shared.DataModels
 
 <h1>Ladder</h1>
+
+@if (ladder == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <ul>
+        @foreach (var position in ladder.LadderPositions)
+        {
+            <li>@position.TeamName, @position.Points</li>
+        }
+    </ul>
+}
+
+@code {
+    private data.Ladder ladder;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ladder = await Http.GetFromJsonAsync<data.Ladder>("api/ladder");
+    }
+}

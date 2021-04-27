@@ -24,7 +24,5 @@ else
     protected override async Task OnInitializedAsync()
     {
         players = await Http.GetFromJsonAsync<List<Player>>("api/player");
-
-        Console.WriteLine("test");
     }
 }
