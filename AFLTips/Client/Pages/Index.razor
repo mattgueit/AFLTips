@@ -1,3 +1,13 @@
 ﻿@page "/"
 
-<h1>ROUND 4</h1>
+<h1>ROUND @currentRound</h1>
+
+@code {
+    private int currentRound;
+
+    protected override void OnInitialized()
+    {
+        var rng = new Random();
+        currentRound = rng.Next(1, 24);
+    }
+}

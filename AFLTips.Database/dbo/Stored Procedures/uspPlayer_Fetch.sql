@@ -8,5 +8,6 @@ BEGIN
 		PlayerId,
 		PlayerName
 	FROM [dbo].[Player]
+	WHERE PlayerId = @PlayerId
 
 END

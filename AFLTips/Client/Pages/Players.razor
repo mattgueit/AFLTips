@@ -1,3 +1,30 @@
 ﻿@page "/players"
+@inject HttpClient Http
+@using AFLTips.Shared.DataModels 
 
 <h1>Players</h1>
+
+@if (players == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <ul>
+        @foreach (var player in players)
+        {
+            <li>@player.PlayerId:  @player.PlayerName</li>
+        }
+    </ul>
+}
+
+@code {
+    private List<Player> players;
+
+    protected override async Task OnInitializedAsync()
+    {
+        players = await Http.GetFromJsonAsync<List<Player>>("api/player");
+
+        Console.WriteLine("test");
+    }
+}
