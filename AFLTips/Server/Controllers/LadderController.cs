@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AFLTips.Server.Services;
 using AFLTips.Shared.DataModels;
 using Microsoft.AspNetCore.Mvc;

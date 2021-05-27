@@ -1,6 +1,4 @@
-﻿using System;
-using System.Net.Http.Headers;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using AFLTips.Shared.DataModels;
 using Newtonsoft.Json;
@@ -12,25 +10,16 @@ namespace AFLTips.Server.Services
     {
         private readonly HttpClient _httpClient;
 
-        public LadderService()
+        public LadderService(HttpClient httpClient)
         {
-            _httpClient = new HttpClient();
-            //_httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("https://github.com/mattgueit/AFLTips"));
+            _httpClient = httpClient;
         }
 
         public async Task<Ladder> GetLadder()
         {
-            var content = await _httpClient.GetStringAsync("https://api.squiggle.com.au/?q=standings");
-            var ladder = new Ladder();
+            var content = await _httpClient.GetStringAsync("?q=standings");
 
-            try 
-            { 
-                ladder = JsonConvert.DeserializeObject<Ladder>(content);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            var ladder = JsonConvert.DeserializeObject<Ladder>(content);
 
             return ladder;
         }
