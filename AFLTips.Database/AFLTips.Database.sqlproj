@@ -63,11 +63,12 @@
     <Folder Include="dbo\Tables" />
     <Folder Include="Scripts" />
     <Folder Include="Security" />
+    <Folder Include="dbo\User Defined Types" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Data\Stored Procedures\Data.Team.sql" />
     <Build Include="dbo\Stored Procedures\uspMatch_Fetch.sql" />
-    <Build Include="dbo\Stored Procedures\uspMatch_Insert.sql" />
+    <Build Include="dbo\Stored Procedures\uspMatch_Upsert.sql" />
     <Build Include="dbo\Stored Procedures\uspMatchResult_Fetch.sql" />
     <Build Include="dbo\Stored Procedures\uspMatchResult_Insert.sql" />
     <Build Include="dbo\Stored Procedures\uspPlayer_Fetch.sql" />
@@ -80,6 +81,8 @@
     <Build Include="dbo\Tables\Tip.sql" />
     <Build Include="Security\Data.sql" />
     <Build Include="dbo\Stored Procedures\uspPlayer_FetchAll.sql" />
+    <Build Include="dbo\Stored Procedures\uspMatch_FetchAll.sql" />
+    <Build Include="dbo\User Defined Types\udtMatchTableType.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />

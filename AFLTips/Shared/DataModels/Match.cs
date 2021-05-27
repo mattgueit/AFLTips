@@ -10,5 +10,6 @@ namespace AFLTips.Shared.DataModels
         public int AwayTeamId { get; set; }
         public DateTime MatchDate { get; set; }
         public string Venue { get; set; }
+        public DateTime DateUpdated { get; set; }
     }
 }

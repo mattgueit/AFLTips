@@ -1,6 +1,22 @@
 ﻿@page "/"
+@inject HttpClient Http
 
-<h1>ROUND @currentRound</h1>
+<div>
+    <h1 style="float:left">ROUND @currentRound</h1>
+    <span id="refresh-button" class="oi oi-loop-circular" aria-hidden="true" @onclick="RefreshData"></span>
+</div>
+
+
+<style>
+    #refresh-button {
+        float: right;
+        font-size: 200%;
+    }
+
+        #refresh-button:active {
+            transform: rotate(90deg);
+        }
+</style>
 
 @code {
     private int currentRound;
@@ -9,5 +25,10 @@
     {
         var rng = new Random();
         currentRound = rng.Next(1, 24);
+    }
+
+    private async void RefreshData()
+    {
+        await Http.GetAsync("api/fixture/update");
     }
 }

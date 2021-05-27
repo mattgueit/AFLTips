@@ -32,9 +32,12 @@ namespace AFLTips.Server
 
 
             // DI registrations
-            services.AddTransient<IPlayerService, PlayerService>();
-            services.AddTransient<IPlayerRepository, PlayerRepository>();
+            services.AddTransient<IFixtureService, FixtureService>();
             services.AddTransient<ILadderService, LadderService>();
+            services.AddTransient<IPlayerService, PlayerService>();
+
+            services.AddTransient<IMatchRepository, MatchRepository>();
+            services.AddTransient<IPlayerRepository, PlayerRepository>();
 
 
             // HttpClient configuration
