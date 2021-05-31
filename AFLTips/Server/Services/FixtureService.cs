@@ -4,6 +4,7 @@ using AFLTips.Shared.DataModels;
 using AFLTips.Server.Repositories;
 using System.Collections.Generic;
 using System;
+using Newtonsoft.Json;
 
 namespace AFLTips.Server.Services
 {
@@ -12,34 +13,23 @@ namespace AFLTips.Server.Services
         private readonly HttpClient _httpClient;
         private readonly IMatchRepository _matchRepository;
 
-        public FixtureService(IMatchRepository matchRepository)
+        public FixtureService(IMatchRepository matchRepository, HttpClient httpClient)
         {
-            _httpClient = new HttpClient();
             _matchRepository = matchRepository;
-            //_httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("https://github.com/mattgueit/AFLTips"));
+            _httpClient = httpClient;
         }
 
-        public Task UpdateFixture()
+
+
+
+
+        public async Task UpdateFixture()
         {
-            var matches = new List<Match>();
+            var content = await _httpClient.GetStringAsync($"?q=games;year={DateTime.Today.Year}");
 
-            for (int i = 1; i <= 100; i++)
-            {
-                var match = new Match()
-                {
-                    MatchId = i,
-                    RoundId = (int)Math.Ceiling(Decimal.Divide(i, 9)),
-                    HomeTeamId = 1,
-                    AwayTeamId = 2,
-                    MatchDate = DateTime.Now,
-                    Venue = "MCG",
-                    DateUpdated = DateTime.Now
-                };
+            var apiMatches = JsonConvert.DeserializeObject<Fixture>(content);
 
-                matches.Add(match);
-            }
-
-            return _matchRepository.UpsertMatches(matches);
+            await _matchRepository.UpsertMatches(apiMatches);
         }
 
         public Task<int> GetCurrentRound()

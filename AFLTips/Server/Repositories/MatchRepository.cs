@@ -31,27 +31,36 @@ namespace AFLTips.Server.Repositories
             return matches;
         }
 
-        public Task UpsertMatches(List<Match> matches)
+        public async Task UpsertMatches(Fixture fixture)
         {
-            var sqlParameter = new SqlParameter
-            {
-                ParameterName = "Matches",
-                SqlDbType = SqlDbType.Structured,
-                Value = matches,
-                TypeName = "[dbo].[udtMatchTableType]"
-            };
+            var matches = fixture.Matches;
 
-            var parameters = new
+            var dataTable = new DataTable();
+            dataTable.Columns.Add("MatchId", typeof(int));
+            dataTable.Columns.Add("RoundId", typeof(int));
+            dataTable.Columns.Add("HomeTeamId", typeof(int));
+            dataTable.Columns.Add("AwayTeamId", typeof(int));
+            dataTable.Columns.Add("MatchDate", typeof(DateTime));
+            dataTable.Columns.Add("Venue", typeof(string));
+            dataTable.Columns.Add("DateUpdated", typeof(DateTime));
+            
+            foreach(var match in matches)
             {
-                Matches = sqlParameter
-            };
+                dataTable.Rows.Add(
+                    match.MatchId, 
+                    match.RoundId, 
+                    match.HomeTeamId, 
+                    match.AwayTeamId, 
+                    match.MatchDate,
+                    match.Venue, 
+                    DateTime.Now
+                );
+            }
 
             using (IDbConnection db = new SqlConnection(_configuration.GetConnectionString("default")))
             {
-                db.Execute("[dbo].[uspMatch_Upsert]", param: parameters, commandType: CommandType.StoredProcedure);
+                await db.ExecuteAsync("[dbo].[uspMatch_Upsert]", new { Matches = dataTable.AsTableValuedParameter("dbo.udtMatchTableType") }, commandType: CommandType.StoredProcedure);
             }
-
-            return Task.CompletedTask;
         }
     }
 }

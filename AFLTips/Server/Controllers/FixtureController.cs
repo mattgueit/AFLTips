@@ -33,11 +33,9 @@ namespace AFLTips.Server.Controllers
 
         // api/fixture/update
         [HttpGet("update")]
-        public Task<int> UpdateFixture()
+        public async Task UpdateFixture()
         {
-            _fixtureService.UpdateFixture();
-
-            return Task.FromResult(1);
+            await _fixtureService.UpdateFixture();
         }
     }
 }

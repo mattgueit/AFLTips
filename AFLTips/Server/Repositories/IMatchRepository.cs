@@ -7,6 +7,6 @@ namespace AFLTips.Server.Repositories
     public interface IMatchRepository
     {
         List<Match> GetAll();
-        Task UpsertMatches(List<Match> matches);
+        Task UpsertMatches(Fixture fixture);
     }
 }   
