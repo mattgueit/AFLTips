@@ -11,30 +11,26 @@ namespace AFLTips.Server.Services
     public class FixtureService : IFixtureService
     {
         private readonly HttpClient _httpClient;
-        private readonly IMatchRepository _matchRepository;
+        private readonly IFixtureRepository _matchRepository;
 
-        public FixtureService(IMatchRepository matchRepository, HttpClient httpClient)
+        public FixtureService(IFixtureRepository matchRepository, HttpClient httpClient)
         {
             _matchRepository = matchRepository;
             _httpClient = httpClient;
         }
 
-
-
-
-
-        public async Task UpdateFixture()
+        public async Task Update()
         {
-            var content = await _httpClient.GetStringAsync($"?q=games;year={DateTime.Today.Year}");
+            var allGames = await _httpClient.GetStringAsync($"?q=games;year={DateTime.Today.Year}");
 
-            var apiMatches = JsonConvert.DeserializeObject<Fixture>(content);
+            var fixture = JsonConvert.DeserializeObject<Fixture>(allGames);
 
-            await _matchRepository.UpsertMatches(apiMatches);
+            await _matchRepository.UpsertFixture(fixture);
         }
 
         public Task<int> GetCurrentRound()
         {
-            var allMatches =  _matchRepository.GetAll();
+            var fixture =  _matchRepository.GetFixture();
 
             return Task.FromResult(1);
         }

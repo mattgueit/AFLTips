@@ -13,9 +13,17 @@ BEGIN
 					[AwayTeamId],
 					[MatchDate],
 					[Venue],
+					[Completed],
+					[WinnerTeamId],
+					[HomeGoals],
+					[HomeBehinds],
+					[HomeScore],
+					[AwayGoals],
+					[AwayBehinds],
+					[AwayScore],
 					[DateUpdated]
 				FROM @Matches
-			) AS Source (MatchId, RoundId, HomeTeamId, AwayTeamId, MatchDate, Venue, DateUpdated)
+			) AS Source ([MatchId], [RoundId], [HomeTeamId], [AwayTeamId], [MatchDate], [Venue], [Completed], [WinnerTeamId], [HomeGoals], [HomeBehinds], [HomeScore], [AwayGoals], [AwayBehinds], [AwayScore], [DateUpdated])
 			ON Target.MatchId = Source.MatchId
 
 			WHEN MATCHED
@@ -26,6 +34,14 @@ BEGIN
 				OR Target.AwayTeamId <> Source.AwayTeamId
 				OR Target.MatchDate <> Source.MatchDate
 				OR Target.Venue <> Source.Venue
+				OR Target.Completed <> Source.Completed
+				OR Target.WinnerTeamId <> Source.WinnerTeamId
+				OR Target.HomeGoals <> Source.HomeGoals
+				OR Target.HomeBehinds <> Source.HomeBehinds
+				OR Target.HomeScore <> Source.HomeScore
+				OR Target.AwayGoals <> Source.AwayGoals
+				OR Target.AwayBehinds <> Source.AwayBehinds
+				OR Target.AwayScore <> Source.AwayScore
 				OR Target.DateUpdated <> Source.DateUpdated
 			)
 			THEN
@@ -35,11 +51,19 @@ BEGIN
 				AwayTeamId = Source.AwayTeamId,
 				MatchDate = Source.MatchDate,
 				Venue = Source.Venue,
+				Completed = Source.Completed,
+				WinnerTeamId = Source.WinnerTeamId,
+				HomeGoals = Source.HomeGoals,
+				HomeBehinds = Source.HomeBehinds,
+				HomeScore = Source.HomeScore,
+				AwayGoals = Source.AwayGoals,
+				AwayBehinds = Source.AwayBehinds,
+				AwayScore = Source.AwayScore,
 				DateUpdated = Source.DateUpdated
 
 			WHEN NOT MATCHED BY TARGET THEN
-			INSERT (MatchId, RoundId, HomeTeamId, AwayTeamId, MatchDate, Venue, DateUpdated)
-			VALUES (MatchId, RoundId, HomeTeamId, AwayTeamId, MatchDate, Venue, DateUpdated)
+			INSERT ([MatchId], [RoundId], [HomeTeamId], [AwayTeamId], [MatchDate], [Venue], [Completed], [WinnerTeamId], [HomeGoals], [HomeBehinds], [HomeScore], [AwayGoals], [AwayBehinds], [AwayScore], [DateUpdated])
+			VALUES ([MatchId], [RoundId], [HomeTeamId], [AwayTeamId], [MatchDate], [Venue], [Completed], [WinnerTeamId], [HomeGoals], [HomeBehinds], [HomeScore], [AwayGoals], [AwayBehinds], [AwayScore], [DateUpdated])
 
 			WHEN NOT MATCHED BY SOURCE THEN
 			DELETE;

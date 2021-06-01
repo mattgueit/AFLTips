@@ -4,11 +4,20 @@ BEGIN
 
 	SELECT
 		MatchId,
-		RoundId
+		RoundId,
 		HomeTeamId,
 		AwayTeamId,
 		MatchDate,
-		Venue
+		Venue,
+		Completed,
+		WinnerTeamId,
+		HomeGoals,
+		HomeBehinds,
+		HomeScore,
+		AwayGoals,
+		AwayBehinds,
+		AwayScore,
+		DateUpdated
 	FROM [dbo].[Match]
 
 END

@@ -6,7 +6,7 @@ namespace AFLTips.Server.Services
 {
     public interface IFixtureService
     {
-        Task UpdateFixture();
+        Task Update();
         public Task<int> GetCurrentRound();
     }
 }

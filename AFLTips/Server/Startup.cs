@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using AFLTips.Server.Repositories;
 using AFLTips.Server.Services;
+using AFLTips.Shared.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -36,8 +37,12 @@ namespace AFLTips.Server
             services.AddTransient<ILadderService, LadderService>();
             services.AddTransient<IPlayerService, PlayerService>();
 
-            services.AddTransient<IMatchRepository, MatchRepository>();
+            services.AddTransient<IFixtureRepository, FixtureRepository>();
             services.AddTransient<IPlayerRepository, PlayerRepository>();
+
+            // Sql Server config
+            var sqlConfig = new SqlDbConfiguration(Configuration.GetConnectionString("default"));
+            services.AddSingleton(sqlConfig);
 
 
             // HttpClient configuration

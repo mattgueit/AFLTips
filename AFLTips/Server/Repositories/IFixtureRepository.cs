@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace AFLTips.Server.Repositories
 {
-    public interface IMatchRepository
+    public interface IFixtureRepository
     {
-        List<Match> GetAll();
-        Task UpsertMatches(Fixture fixture);
+        Fixture GetFixture();
+        Task UpsertFixture(Fixture fixture);
     }
 }   

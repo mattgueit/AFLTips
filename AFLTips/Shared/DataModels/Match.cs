@@ -23,6 +23,30 @@ namespace AFLTips.Shared.DataModels
         [JsonProperty("venue")]
         public string Venue { get; set; }
 
+        [JsonProperty("complete")]
+        public bool Completed { get; set; }
+
+        [JsonProperty("winnerteamid")]
+        public int? WinnerTeamId { get; set; }
+
+        [JsonProperty("hgoals")]
+        public int? HomeGoals { get; set; }
+
+        [JsonProperty("hbehinds")]
+        public int? HomeBehinds { get; set; }
+
+        [JsonProperty("hscore")]
+        public int? HomeScore { get; set; }
+
+        [JsonProperty("agoals")]
+        public int? AwayGoals { get; set; }
+
+        [JsonProperty("abehinds")]
+        public int? AwayBehinds { get; set; }
+
+        [JsonProperty("ascore")]
+        public int? AwayScore { get; set; }
+
         [JsonIgnore]
         public DateTime DateUpdated { get; set; }
     }

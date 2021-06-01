@@ -69,13 +69,10 @@
     <Build Include="Data\Stored Procedures\Data.Team.sql" />
     <Build Include="dbo\Stored Procedures\uspMatch_Fetch.sql" />
     <Build Include="dbo\Stored Procedures\uspMatch_Upsert.sql" />
-    <Build Include="dbo\Stored Procedures\uspMatchResult_Fetch.sql" />
-    <Build Include="dbo\Stored Procedures\uspMatchResult_Insert.sql" />
     <Build Include="dbo\Stored Procedures\uspPlayer_Fetch.sql" />
     <Build Include="dbo\Stored Procedures\uspPlayer_Insert.sql" />
     <Build Include="dbo\Stored Procedures\uspTipping_Fetch.sql" />
     <Build Include="dbo\Tables\Match.sql" />
-    <Build Include="dbo\Tables\MatchResult.sql" />
     <Build Include="dbo\Tables\Player.sql" />
     <Build Include="dbo\Tables\Team.sql" />
     <Build Include="dbo\Tables\Tip.sql" />
@@ -86,5 +83,8 @@
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AFLTips.Database.publish.xml" />
   </ItemGroup>
 </Project>
