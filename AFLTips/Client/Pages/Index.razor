@@ -1,11 +1,17 @@
 ﻿@page "/"
 @inject HttpClient Http
 
-<div>
-    <h1 style="float:left">ROUND @currentRound</h1>
-    <span id="refresh-button" class="oi oi-loop-circular" aria-hidden="true" @onclick="RefreshData"></span>
-</div>
-
+@if (currentRound == 0)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div>
+        <h1 style="float:left">ROUND @currentRound</h1>
+        <span id="refresh-button" class="oi oi-loop-circular" aria-hidden="true" @onclick="RefreshData"></span>
+    </div>
+}
 
 <style>
     #refresh-button {
@@ -21,10 +27,9 @@
 @code {
     private int currentRound;
 
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
-        var rng = new Random();
-        currentRound = rng.Next(1, 24);
+        currentRound = await Http.GetFromJsonAsync<int>("api/fixture/currentRound");
     }
 
     private async void RefreshData()

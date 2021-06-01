@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using AFLTips.Shared.Config;
 using AFLTips.Shared.DataModels;
 using Dapper;
-using Microsoft.Extensions.Configuration;
 
 namespace AFLTips.Server.Repositories
 {
@@ -19,13 +18,14 @@ namespace AFLTips.Server.Repositories
             _sqlConfig = sqlConfig;
         }
 
-        public Fixture GetFixture()
+        public async Task<Fixture> GetFixture()
         {
             var fixture = new Fixture();
 
             using (IDbConnection db = new SqlConnection(_sqlConfig.ConnectionString))
             {
-                fixture.Matches = db.Query<Match>("[dbo].[uspMatch_FetchAll]", commandType: CommandType.StoredProcedure).ToList();
+                var matches = await db.QueryAsync<Match>("[dbo].[uspMatch_FetchAll]", commandType: CommandType.StoredProcedure);
+                fixture.Matches = matches.ToList();
             }
 
             return fixture;

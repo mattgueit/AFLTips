@@ -6,7 +6,7 @@ namespace AFLTips.Server.Repositories
 {
     public interface IFixtureRepository
     {
-        Fixture GetFixture();
+        Task<Fixture> GetFixture();
         Task UpsertFixture(Fixture fixture);
     }
 }   

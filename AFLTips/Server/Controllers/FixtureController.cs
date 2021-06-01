@@ -25,7 +25,7 @@ namespace AFLTips.Server.Controllers
         }
 
         // api/fixture
-        [HttpGet]
+        [HttpGet("currentRound")]
         public async Task<int> GetCurrentRound()
         {
             return await _fixtureService.GetCurrentRound();
