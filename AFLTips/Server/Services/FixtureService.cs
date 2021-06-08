@@ -19,7 +19,7 @@ namespace AFLTips.Server.Services
             _httpClient = httpClient;
         }
 
-        public async Task Update()
+        public async Task UpdateFixture()
         {
             var allGames = await _httpClient.GetStringAsync($"?q=games;year={DateTime.Today.Year}");
 

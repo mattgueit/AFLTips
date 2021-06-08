@@ -64,6 +64,7 @@
     <Folder Include="Scripts" />
     <Folder Include="Security" />
     <Folder Include="dbo\User Defined Types" />
+    <Folder Include="dbo\Functions" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Data\Stored Procedures\Data.Team.sql" />
@@ -80,6 +81,7 @@
     <Build Include="dbo\Stored Procedures\uspPlayer_FetchAll.sql" />
     <Build Include="dbo\Stored Procedures\uspMatch_FetchAll.sql" />
     <Build Include="dbo\User Defined Types\udtMatchTableType.sql" />
+    <Build Include="dbo\Functions\HomeOrAwayTeamExists.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
