@@ -25,13 +25,12 @@ namespace AFLTips.Server.Controllers
         }
 
         // api/tip
-        [HttpGet("update")]
-        public async Task UpdateTips()
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateTips(List<Tip> tips)
         {
-            var tips = new List<Tip>();
-            tips.Add(new Tip() { MatchId = 6345, PlayerId = 2, TeamId = 11});
-
             await _tipService.UpdateTips(tips);
+
+            return Ok();
         }
     }
 }

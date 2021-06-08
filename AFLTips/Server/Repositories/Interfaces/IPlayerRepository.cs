@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AFLTips.Shared.DataModels;
 
 namespace AFLTips.Server.Repositories.Interfaces
 {
     public interface IPlayerRepository
     {
-        List<Player> GetAllPlayers();
+        Task<List<Player>> GetAllPlayers();
     }
 }

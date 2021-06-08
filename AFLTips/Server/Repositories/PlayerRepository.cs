@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Threading.Tasks;
 using AFLTips.Server.Repositories.Interfaces;
 using AFLTips.Shared.Config;
 using AFLTips.Shared.DataModels;
@@ -18,16 +19,14 @@ namespace AFLTips.Server.Repositories
             _sqlConfig = sqlConfig;
         }
 
-        public List<Player> GetAllPlayers()
+        public async Task<List<Player>> GetAllPlayers()
         {
-            var players = new List<Player>();
-
             using (IDbConnection db = new SqlConnection(_sqlConfig.ConnectionString))
             {
-                players = db.Query<Player>("[dbo].[uspPlayer_FetchAll]", commandType: CommandType.StoredProcedure).ToList();
-            }
+                var players = await db.QueryAsync<Player>("[dbo].[uspPlayer_FetchAll]", commandType: CommandType.StoredProcedure);
 
-            return players;
+                return players.ToList();
+            }
         }
     }
 }

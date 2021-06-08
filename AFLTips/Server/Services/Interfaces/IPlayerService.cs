@@ -8,6 +8,6 @@ namespace AFLTips.Server.Services.Interfaces
 {
     public interface IPlayerService
     {
-        List<Player> GetAllPlayers();
+        Task<List<Player>> GetAllPlayers();
     }
 }

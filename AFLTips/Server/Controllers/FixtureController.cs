@@ -22,18 +22,22 @@ namespace AFLTips.Server.Controllers
             _fixtureService = fixtureService;
         }
 
-        // api/fixture
+        // api/fixture/currentRound
         [HttpGet("currentRound")]
-        public async Task<int> GetCurrentRound()
+        public async Task<IActionResult> GetCurrentRound()
         {
-            return await _fixtureService.GetCurrentRound();
+            var currentRoundId = await _fixtureService.GetCurrentRound();
+
+            return Ok(currentRoundId);
         }
 
         // api/fixture/update
         [HttpGet("update")]
-        public async Task UpdateFixture()
+        public async Task<IActionResult> UpdateFixture()
         {
             await _fixtureService.UpdateFixture();
+
+            return Ok();
         }
     }
 }

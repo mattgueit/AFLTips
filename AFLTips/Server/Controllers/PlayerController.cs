@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AFLTips.Server.Services.Interfaces;
 using AFLTips.Shared.DataModels;
 using Microsoft.AspNetCore.Mvc;
@@ -25,9 +26,11 @@ namespace AFLTips.Server.Controllers
 
         // api/player
         [HttpGet]
-        public List<Player> Get()
+        public async Task<ActionResult<List<Player>>> Get()
         {
-            return _playerService.GetAllPlayers();
+            var players = await _playerService.GetAllPlayers();
+
+            return Ok(players);
         }
     }
 }

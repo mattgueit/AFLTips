@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AFLTips.Server.Repositories.Interfaces;
 using AFLTips.Server.Services.Interfaces;
 using AFLTips.Shared.DataModels;
@@ -14,9 +15,9 @@ namespace AFLTips.Server.Services
             _playerRepository = playerRepository;
         }
 
-        public List<Player> GetAllPlayers()
+        public async Task<List<Player>> GetAllPlayers()
         {
-            return _playerRepository.GetAllPlayers();
+            return await _playerRepository.GetAllPlayers();
         }
     }
 }

@@ -25,9 +25,11 @@ namespace AFLTips.Server.Controllers
 
         // api/ladder
         [HttpGet]
-        public async Task<Ladder> Get()
+        public async Task<ActionResult<Ladder>> Get()
         {
-            return await _ladderService.GetLadder();
+            var ladder = await _ladderService.GetLadder();
+
+            return Ok(ladder);
         }
     }
 }
