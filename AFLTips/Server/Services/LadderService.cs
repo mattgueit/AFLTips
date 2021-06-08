@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using AFLTips.Server.Services.Interfaces;
 using AFLTips.Shared.DataModels;
 using Newtonsoft.Json;
 

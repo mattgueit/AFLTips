@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[uspMatch_Upsert]
-		@Matches [dbo].[udtMatchTabletype] READONLY
+		@Matches [dbo].[udtMatchTableType] READONLY
 AS
 
 BEGIN

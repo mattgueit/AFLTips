@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[uspTipping_Fetch]
+﻿CREATE PROCEDURE [dbo].[uspTip_Fetch]
 	@MatchId INT,
 	@PlayerId INT
 AS
@@ -9,7 +9,7 @@ BEGIN
 		MatchId,
 		PlayerId,
 		TeamId
-	FROM [dbo].[Tipping]
+	FROM [dbo].[Tip]
 	WHERE MatchId = @MatchId
 		AND PlayerId = @PlayerId
 

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using AFLTips.Server.Services;
+using AFLTips.Server.Services.Interfaces;
 using AFLTips.Shared.DataModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

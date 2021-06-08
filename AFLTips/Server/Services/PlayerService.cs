@@ -1,9 +1,7 @@
-﻿using AFLTips.Server.Repositories;
+﻿using System.Collections.Generic;
+using AFLTips.Server.Repositories.Interfaces;
+using AFLTips.Server.Services.Interfaces;
 using AFLTips.Shared.DataModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AFLTips.Server.Services
 {

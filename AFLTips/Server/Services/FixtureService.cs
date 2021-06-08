@@ -3,8 +3,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AFLTips.Shared.DataModels;
-using AFLTips.Server.Repositories;
+using AFLTips.Server.Services.Interfaces;
 using Newtonsoft.Json;
+using AFLTips.Server.Repositories.Interfaces;
 
 namespace AFLTips.Server.Services
 {
