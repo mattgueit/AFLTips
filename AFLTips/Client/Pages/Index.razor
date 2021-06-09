@@ -1,35 +1,65 @@
 ﻿@page "/"
 @inject HttpClient Http
+@using data = AFLTips.Shared.DataModels
 
-@if (currentRound == 0)
+@if (currentRound == 0 || tippingScores == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <div>
+    <div id="header-and-refresh">
         <h1 style="float:left">ROUND @currentRound</h1>
         <span id="refresh-button" class="oi oi-loop-circular" aria-hidden="true" @onclick="RefreshData"></span>
+    </div>
+    <div id="tipping-scores">
+        <table>
+            <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var tippingScore in tippingScores)
+                {
+                    <tr>
+                        <td>@tippingScore.PlayerName</td>
+                        <td>@tippingScore.PlayerScore</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 }
 
 <style>
+    #header-and-refresh {
+        position:absolute;
+    }
+
     #refresh-button {
         float: right;
         font-size: 200%;
     }
 
-        #refresh-button:active {
-            transform: rotate(90deg);
-        }
+    #refresh-button:active {
+        transform: rotate(90deg);
+    }
+
+    #tipping-scores {
+        position:relative;
+    }
 </style>
 
 @code {
     private int currentRound;
+    private List<data.TippingScore> tippingScores;
 
     protected async override Task OnInitializedAsync()
     {
         currentRound = await Http.GetFromJsonAsync<int>("api/fixture/currentRound");
+        tippingScores = await Http.GetFromJsonAsync<List<data.TippingScore>>("api/tip/scores");
     }
 
     private async void RefreshData()

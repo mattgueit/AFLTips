@@ -7,5 +7,7 @@ namespace AFLTips.Server.Repositories.Interfaces
     public interface ITipRepository
     {
         Task UpsertTips(List<Tip> tips);
+        Task<List<TippingScore>> FetchTippingScores(int year);
+
     }
 }   

@@ -84,6 +84,7 @@
     <Build Include="dbo\Stored Procedures\uspTip_Fetch.sql" />
     <Build Include="dbo\Stored Procedures\uspTip_Upsert.sql" />
     <Build Include="dbo\User Defined Types\udtTipTableType.sql" />
+    <Build Include="dbo\Stored Procedures\uspTip_FetchScores.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />

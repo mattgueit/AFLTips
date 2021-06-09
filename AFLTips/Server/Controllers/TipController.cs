@@ -32,5 +32,15 @@ namespace AFLTips.Server.Controllers
 
             return Ok();
         }
+
+        // api/tip/scores
+        [HttpGet("scores")]
+        public async Task<ActionResult<List<TippingScore>>> GetTippingScores()
+        {
+            var overallScores = await _tipService.GetTippingScores();
+
+            return Ok(overallScores);
+        }
+
     }
 }
