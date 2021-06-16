@@ -28,7 +28,7 @@ namespace AFLTips.Server.Controllers
         public async Task<IActionResult> GetCurrentRound()
         {
             var dateTimeNow = DateTime.Now;
-            var currentRoundId = await _fixtureService.GetCurrentRound(dateTimeNow);
+            var currentRoundId = await _fixtureService.GetCurrentRound();
 
             return Ok(currentRoundId);
         }

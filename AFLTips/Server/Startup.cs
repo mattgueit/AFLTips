@@ -6,7 +6,8 @@ using AFLTips.Server.Repositories;
 using AFLTips.Server.Repositories.Interfaces;
 using AFLTips.Server.Services;
 using AFLTips.Server.Services.Interfaces;
-using AFLTips.Server.Handlers.Interfaces;
+using AFLTips.Server.Providers;
+using AFLTips.Server.Providers.Interfaces;
 using AFLTips.Shared.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,7 +42,8 @@ namespace AFLTips.Server
             services.AddTransient<IPlayerService, PlayerService>();
             services.AddTransient<ITipService, TipService>();
 
-            services.AddTransient<IHttpHandler, Handlers.HttpClientHandler>();
+            services.AddTransient<IHttpProvider, HttpClientProvider>();
+            services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
             services.AddTransient<IFixtureRepository, FixtureRepository>();
             services.AddTransient<IPlayerRepository, PlayerRepository>();

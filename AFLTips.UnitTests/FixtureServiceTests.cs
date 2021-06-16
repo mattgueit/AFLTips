@@ -1,4 +1,4 @@
-using AFLTips.Server.Handlers.Interfaces;
+using AFLTips.Server.Providers.Interfaces;
 using AFLTips.Server.Repositories.Interfaces;
 using AFLTips.Server.Services;
 using AFLTips.Server.Services.Interfaces;
@@ -16,12 +16,37 @@ namespace AFLTips.UnitTests
     {
         private readonly IFixtureService _sut;
         private readonly IFixtureRepository _fixtureRepository = Substitute.For<IFixtureRepository>();
-        private readonly IHttpHandler _httpHandler = Substitute.For<IHttpHandler>();
+        private readonly IHttpProvider _httpHandler = Substitute.For<IHttpProvider>();
+        private readonly IDateTimeProvider _dateTimeProvider = Substitute.For<IDateTimeProvider>();
         private readonly Fixture _fixture = new Fixture();
 
         public FixtureServiceTests()
         {
-            _sut = new FixtureService(_fixtureRepository, _httpHandler);
+            _sut = new FixtureService(_fixtureRepository, _httpHandler, _dateTimeProvider);
+        }
+
+        [Fact]
+        public async Task GetCurrentRound_WhenTheSeasonHasntStarted_ReturnFirstRound()
+        {
+            // Arrange
+            var roundAndDatePairs = new List<RoundAndDatePair>();
+            roundAndDatePairs.Add(new RoundAndDatePair(1, new DateTime(2021, 3, 6)));
+            roundAndDatePairs.Add(new RoundAndDatePair(2, new DateTime(2021, 3, 13)));
+            roundAndDatePairs.Add(new RoundAndDatePair(3, new DateTime(2021, 3, 20)));
+            roundAndDatePairs.Add(new RoundAndDatePair(4, new DateTime(2021, 3, 27)));
+
+            var fixture = GenerateAFLFixture(roundAndDatePairs);
+            _fixtureRepository
+                .GetFixture()
+                .Returns(fixture);
+
+            _dateTimeProvider.DateTimeNow.Returns(new DateTime(2021, 1, 1));
+
+            // Act
+            var currentRound = await _sut.GetCurrentRound();
+
+            // Assert
+            Assert.Equal(1, currentRound);
         }
 
         [Fact]
@@ -34,21 +59,69 @@ namespace AFLTips.UnitTests
             roundAndDatePairs.Add(new RoundAndDatePair(12, new DateTime(2021, 6, 19)));
             roundAndDatePairs.Add(new RoundAndDatePair(13, new DateTime(2021, 6, 26)));
 
-            var fixture = GenerateFixture(roundAndDatePairs);
+            var fixture = GenerateAFLFixture(roundAndDatePairs);
             _fixtureRepository
                 .GetFixture()
                 .Returns(fixture);
 
-            var dateTimeNow = new DateTime(2021, 6, 15);
+            _dateTimeProvider.DateTimeNow.Returns(new DateTime(2021, 6, 15));
 
             // Act
-            var currentRound = await _sut.GetCurrentRound(dateTimeNow);
+            var currentRound = await _sut.GetCurrentRound();
 
             // Assert
             Assert.Equal(12, currentRound);
         }
 
-        private AFLFixture GenerateFixture(List<RoundAndDatePair> roundAndDatePairs)
+        [Fact]
+        public async Task GetCurrentRound_WhenRoundIsInProgress_ReturnCurrentRound()
+        {
+            // Arrange
+            var roundAndDatePairs = new List<RoundAndDatePair>();
+            roundAndDatePairs.Add(new RoundAndDatePair(10, new DateTime(2021, 6, 5)));
+            roundAndDatePairs.Add(new RoundAndDatePair(11, new DateTime(2021, 6, 12)));
+            roundAndDatePairs.Add(new RoundAndDatePair(12, new DateTime(2021, 6, 19)));
+            roundAndDatePairs.Add(new RoundAndDatePair(13, new DateTime(2021, 6, 26)));
+
+            var fixture = GenerateAFLFixture(roundAndDatePairs);
+            _fixtureRepository
+                .GetFixture()
+                .Returns(fixture);
+
+            _dateTimeProvider.DateTimeNow.Returns(new DateTime(2021, 6, 26));
+
+            // Act
+            var currentRound = await _sut.GetCurrentRound();
+
+            // Assert
+            Assert.Equal(13, currentRound);
+        }
+
+        [Fact]
+        public async Task GetCurrentRound_WhenSeasonIsOver_ReturnZero()
+        {
+            // Arrange
+            var roundAndDatePairs = new List<RoundAndDatePair>();
+            roundAndDatePairs.Add(new RoundAndDatePair(10, new DateTime(2021, 6, 5)));
+            roundAndDatePairs.Add(new RoundAndDatePair(11, new DateTime(2021, 6, 12)));
+            roundAndDatePairs.Add(new RoundAndDatePair(12, new DateTime(2021, 6, 19)));
+            roundAndDatePairs.Add(new RoundAndDatePair(13, new DateTime(2021, 6, 26)));
+
+            var fixture = GenerateAFLFixture(roundAndDatePairs);
+            _fixtureRepository
+                .GetFixture()
+                .Returns(fixture);
+
+            _dateTimeProvider.DateTimeNow.Returns(new DateTime(2021, 11, 22));
+
+            // Act
+            var currentRound = await _sut.GetCurrentRound();
+
+            // Assert
+            Assert.Equal(0, currentRound);
+        }
+
+        private AFLFixture GenerateAFLFixture(List<RoundAndDatePair> roundAndDatePairs)
         {
             var matches = new List<Match>();
             foreach(var roundAndDatePair in roundAndDatePairs)
@@ -78,8 +151,5 @@ namespace AFLTips.UnitTests
                 MatchDate = matchDate;
             }
         }
-
-
-
     }
 }

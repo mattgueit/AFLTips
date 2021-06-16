@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace AFLTips.Server.Handlers.Interfaces
+namespace AFLTips.Server.Providers.Interfaces
 {
-    public interface IHttpHandler
+    public interface IHttpProvider
     {
         Task<string> GetStringAsync(string request);
     }

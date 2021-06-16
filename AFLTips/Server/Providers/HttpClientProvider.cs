@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using AFLTips.Server.Handlers.Interfaces;
+using AFLTips.Server.Providers.Interfaces;
 
-namespace AFLTips.Server.Handlers
+namespace AFLTips.Server.Providers
 {
-    public class HttpClientHandler : IHttpHandler
+    public class HttpClientProvider : IHttpProvider
     {
         private readonly HttpClient _httpClient;
 
-        public HttpClientHandler(HttpClient httpClient)
+        public HttpClientProvider(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }

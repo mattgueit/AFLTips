@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using AFLTips.Server.Handlers.Interfaces;
+using AFLTips.Server.Providers.Interfaces;
 using AFLTips.Server.Services.Interfaces;
 using AFLTips.Shared.DataModels;
 using Newtonsoft.Json;
@@ -9,9 +9,9 @@ namespace AFLTips.Server.Services
 {
     public class LadderService : ILadderService
     {
-        private readonly IHttpHandler _httpHandler;
+        private readonly IHttpProvider _httpHandler;
 
-        public LadderService(IHttpHandler httpHandler)
+        public LadderService(IHttpProvider httpHandler)
         {
             _httpHandler = httpHandler;
         }
