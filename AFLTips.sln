@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AFLTips.Shared", "AFLTips\S
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "AFLTips.Database", "AFLTips.Database\AFLTips.Database.sqlproj", "{102B3576-FEEF-41B4-B126-6A604DC2754B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AFLTips.UnitTests", "AFLTips.UnitTests\AFLTips.UnitTests.csproj", "{259F6B20-DD62-489B-BCB2-FC96165AAFEA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{102B3576-FEEF-41B4-B126-6A604DC2754B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{102B3576-FEEF-41B4-B126-6A604DC2754B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{102B3576-FEEF-41B4-B126-6A604DC2754B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{259F6B20-DD62-489B-BCB2-FC96165AAFEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{259F6B20-DD62-489B-BCB2-FC96165AAFEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{259F6B20-DD62-489B-BCB2-FC96165AAFEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{259F6B20-DD62-489B-BCB2-FC96165AAFEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

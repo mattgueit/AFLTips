@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AFLTips.Server.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -26,7 +27,8 @@ namespace AFLTips.Server.Controllers
         [HttpGet("currentRound")]
         public async Task<IActionResult> GetCurrentRound()
         {
-            var currentRoundId = await _fixtureService.GetCurrentRound();
+            var dateTimeNow = DateTime.Now;
+            var currentRoundId = await _fixtureService.GetCurrentRound(dateTimeNow);
 
             return Ok(currentRoundId);
         }

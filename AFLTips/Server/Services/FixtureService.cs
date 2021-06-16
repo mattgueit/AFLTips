@@ -1,40 +1,40 @@
 ﻿using System;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using AFLTips.Shared.DataModels;
 using AFLTips.Server.Services.Interfaces;
-using Newtonsoft.Json;
 using AFLTips.Server.Repositories.Interfaces;
+using AFLTips.Server.Handlers.Interfaces;
+using Newtonsoft.Json;
 
 namespace AFLTips.Server.Services
 {
     public class FixtureService : IFixtureService
     {
-        private readonly HttpClient _httpClient;
-        private readonly IFixtureRepository _matchRepository;
+        private readonly IFixtureRepository _fixtureRepository;
+        private readonly IHttpHandler _httpHandler;
 
-        public FixtureService(IFixtureRepository matchRepository, HttpClient httpClient)
+        public FixtureService(IFixtureRepository fixtureRepository, IHttpHandler httpHandler)
         {
-            _matchRepository = matchRepository;
-            _httpClient = httpClient;
+            _fixtureRepository = fixtureRepository;
+            _httpHandler = httpHandler;
         }
 
         public async Task UpdateFixture()
         {
-            var allGames = await _httpClient.GetStringAsync($"?q=games;year={DateTime.Today.Year}");
+            var allGames = await _httpHandler.GetStringAsync($"?q=games;year={DateTime.Today.Year}");
 
-            var fixture = JsonConvert.DeserializeObject<Fixture>(allGames);
+            var fixture = JsonConvert.DeserializeObject<AFLFixture>(allGames);
 
-            await _matchRepository.UpsertFixture(fixture);
+            await _fixtureRepository.UpsertFixture(fixture);
         }
 
-        public async Task<int> GetCurrentRound()
+        public async Task<int> GetCurrentRound(DateTime dateTimeNow)
         {
-            var fixture =  await _matchRepository.GetFixture();
+            var fixture =  await _fixtureRepository.GetFixture();
 
             var roundId = fixture.Matches
-                .Where(m => m.MatchDate >= DateTime.Now)
+                .Where(m => m.MatchDate >= dateTimeNow)
                 .OrderBy(m => m.MatchDate)
                 .Select(m => m.RoundId).First();
 

@@ -19,9 +19,9 @@ namespace AFLTips.Server.Repositories
             _sqlConfig = sqlConfig;
         }
 
-        public async Task<Fixture> GetFixture()
+        public async Task<AFLFixture> GetFixture()
         {
-            var fixture = new Fixture();
+            var fixture = new AFLFixture();
 
             using (IDbConnection db = new SqlConnection(_sqlConfig.ConnectionString))
             {
@@ -32,7 +32,7 @@ namespace AFLTips.Server.Repositories
             return fixture;
         }
 
-        public async Task UpsertFixture(Fixture fixture)
+        public async Task UpsertFixture(AFLFixture fixture)
         {
             var matches = fixture.Matches;
 
