@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using AFLTips.Server.Providers.Interfaces;
 using AFLTips.Server.Repositories.Interfaces;
 using AFLTips.Shared.Config;
 using AFLTips.Shared.DataModels;
@@ -13,10 +14,12 @@ namespace AFLTips.Server.Repositories
     public class FixtureRepository : IFixtureRepository
     {
         private readonly SqlDbConfiguration _sqlConfig;
+        private readonly IDateTimeProvider _dateTimeProvider;
 
-        public FixtureRepository(SqlDbConfiguration sqlConfig)
+        public FixtureRepository(SqlDbConfiguration sqlConfig, IDateTimeProvider dateTimeProvider)
         {
             _sqlConfig = sqlConfig;
+            _dateTimeProvider = dateTimeProvider;
         }
 
         public async Task<AFLFixture> GetFixture()
@@ -70,7 +73,7 @@ namespace AFLTips.Server.Repositories
                     match.AwayGoals,
                     match.AwayBehinds,
                     match.AwayScore,
-                    DateTime.Now
+                    _dateTimeProvider.DateTimeNow
                 );;
             }
 
