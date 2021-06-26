@@ -1,0 +1,51 @@
+﻿@page "/tips"
+@inject HttpClient Http
+@using data = AFLTips.Shared.DataModels
+
+
+@if (currentRound == 0 || players == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h1>Tips</h1>
+
+    <div class="container-fluid">
+        <div class="row justify-content-around">
+            <div class="col-12">
+                <form>
+                    <div class="form-group">
+                        <select class="form-select" aria-label="player select">
+                            @foreach (var player in players)
+                            {
+                                <option value="@player.PlayerId">@player.PlayerName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                        <label class="form-check-label" for="inlineCheckbox1">1</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private int currentRound;
+    private List<data.Player> players;
+
+    protected async override Task OnInitializedAsync()
+    {
+        var getCurrentRoundTask = Http.GetFromJsonAsync<int>("api/fixture/currentRound");
+        var getPlayersTask = Http.GetFromJsonAsync<List<data.Player>>("api/player");
+
+        await Task.WhenAll(getCurrentRoundTask, getPlayersTask);
+
+        currentRound = getCurrentRoundTask.Result;
+        players = getPlayersTask.Result;
+    }
+}
