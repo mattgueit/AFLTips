@@ -68,7 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Data\Stored Procedures\Data.Team.sql" />
-    <Build Include="dbo\Stored Procedures\uspMatch_Fetch.sql" />
+    <Build Include="dbo\Stored Procedures\uspMatch_FetchByRound.sql" />
     <Build Include="dbo\Stored Procedures\uspMatch_Upsert.sql" />
     <Build Include="dbo\Stored Procedures\uspPlayer_Fetch.sql" />
     <Build Include="dbo\Stored Procedures\uspPlayer_Insert.sql" />
@@ -85,6 +85,7 @@
     <Build Include="dbo\Stored Procedures\uspTip_Upsert.sql" />
     <Build Include="dbo\User Defined Types\udtTipTableType.sql" />
     <Build Include="dbo\Stored Procedures\uspTip_FetchScores.sql" />
+    <Build Include="dbo\Stored Procedures\uspTeam_FetchAll.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />

@@ -33,6 +33,16 @@ namespace AFLTips.Server.Controllers
             return Ok(currentRoundId);
         }
 
+        // api/fixture/matchesByRound
+        [HttpGet("matchesByRound")]
+        public async Task<IActionResult> GetMatchesByRound(int roundId)
+        {
+            var matches = await _fixtureService.GetMatchesByRound(roundId);
+
+            return Ok(matches);
+        }
+
+
         // api/fixture/update
         [HttpGet("update")]
         public async Task<IActionResult> UpdateFixture()

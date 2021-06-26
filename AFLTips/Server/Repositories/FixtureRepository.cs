@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -33,6 +34,20 @@ namespace AFLTips.Server.Repositories
             }
 
             return fixture;
+        }
+
+        public async Task<List<Match>> GetMatchesByRound(int roundId)
+        {
+            var matches = new List<Match>();
+            var parameters = new DynamicParameters(new { RoundId = roundId });
+
+            using (IDbConnection db = new SqlConnection(_sqlConfig.ConnectionString))
+            {
+                var result = await db.QueryAsync<Match>("dbo.[uspMatch_FetchByRound]", parameters, commandType: CommandType.StoredProcedure);
+                matches = result.ToList();
+            }
+
+            return matches;
         }
 
         public async Task UpsertFixture(AFLFixture fixture)

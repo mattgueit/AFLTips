@@ -48,6 +48,7 @@ namespace AFLTips.Server
             services.AddTransient<IFixtureRepository, FixtureRepository>();
             services.AddTransient<IPlayerRepository, PlayerRepository>();
             services.AddTransient<ITipRepository, TipRepository>();
+            services.AddTransient<ITeamRepository, TeamRepository>();
 
             // Sql Server config
             var sqlConfig = new SqlDbConfiguration(Configuration.GetConnectionString("default"));

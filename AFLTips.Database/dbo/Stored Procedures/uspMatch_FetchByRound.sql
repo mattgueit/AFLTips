@@ -1,5 +1,5 @@
-﻿CREATE PROCEDURE [dbo].[uspMatch_Fetch]
-	@MatchId INT
+﻿CREATE PROCEDURE [dbo].[uspMatch_FetchByRound]
+	@RoundId INT
 AS
 
 BEGIN
@@ -21,6 +21,6 @@ BEGIN
 		AwayScore,
 		DateUpdated
 	FROM [dbo].[Match]
-	WHERE MatchId = @MatchId
+	WHERE RoundId = @RoundId
 
 END

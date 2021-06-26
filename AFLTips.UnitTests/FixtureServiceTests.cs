@@ -16,13 +16,14 @@ namespace AFLTips.UnitTests
     {
         private readonly IFixtureService _sut;
         private readonly IFixtureRepository _fixtureRepository = Substitute.For<IFixtureRepository>();
+        private readonly ITeamRepository _teamRepository = Substitute.For<ITeamRepository>();
         private readonly IHttpProvider _httpHandler = Substitute.For<IHttpProvider>();
         private readonly IDateTimeProvider _dateTimeProvider = Substitute.For<IDateTimeProvider>();
         private readonly Fixture _fixture = new Fixture();
 
         public FixtureServiceTests()
         {
-            _sut = new FixtureService(_fixtureRepository, _httpHandler, _dateTimeProvider);
+            _sut = new FixtureService(_fixtureRepository, _teamRepository, _httpHandler, _dateTimeProvider);
         }
 
         [Fact]
