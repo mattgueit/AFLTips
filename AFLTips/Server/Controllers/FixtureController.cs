@@ -33,11 +33,11 @@ namespace AFLTips.Server.Controllers
             return Ok(currentRoundId);
         }
 
-        // api/fixture/matchesByRound
-        [HttpGet("matchesByRound")]
-        public async Task<IActionResult> GetMatchesByRound(int roundId)
+        // api/fixture/groupedMatchesByRound
+        [HttpGet("groupedMatchesByRound")]
+        public async Task<IActionResult> GetGroupedMatchesByRound(int roundId)
         {
-            var matches = await _fixtureService.GetMatchesByRound(roundId);
+            var matches = await _fixtureService.GetGroupedMatchesByRound(roundId);
 
             return Ok(matches);
         }

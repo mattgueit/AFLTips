@@ -4,7 +4,9 @@
 
 @if (currentRound == 0 || tippingScores == null)
 {
-    <p><em>Loading...</em></p>
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
 }
 else
 {
@@ -50,9 +52,9 @@ else
         font-size: 200%;
     }
 
-    #refresh-button:active {
-        transform: rotate(90deg);
-    }
+        #refresh-button:active {
+            transform: rotate(90deg);
+        }
 </style>
 
 @code {

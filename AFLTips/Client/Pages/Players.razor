@@ -1,12 +1,14 @@
 ﻿@page "/players"
 @inject HttpClient Http
-@using AFLTips.Shared.DataModels 
+@using AFLTips.Shared.DataModels
 
 <h1>Players</h1>
 
 @if (players == null)
 {
-    <p><em>Loading...</em></p>
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
 }
 else
 {

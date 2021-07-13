@@ -43,49 +43,19 @@ namespace AFLTips.Server.Services
             return roundId;
         }
 
-        public async Task<List<MatchViewModel>> GetMatchesByRound(int roundId)
+        public async Task<List<GroupedMatches>> GetGroupedMatchesByRound(int roundId)
         {
-            var matchViewModels = new List<MatchViewModel>();
-            var matchDataModels = await _fixtureRepository.GetMatchesByRound(roundId);
-            var teams = await _teamRepository.GetTeams();
+            var matchDataModelsTask = _fixtureRepository.GetMatchesByRound(roundId);
+            var teamsTask = _teamRepository.GetTeams();
 
-            foreach (var matchDataModel in matchDataModels)
-            {
-                var homeTeamName = teams
-                    .Where(t => t.TeamId == matchDataModel.HomeTeamId)
-                    .Select(t => t.TeamName)
-                    .First();
+            await Task.WhenAll(matchDataModelsTask, teamsTask);
+            
+            var matchDataModels = matchDataModelsTask.Result;
+            var teams = teamsTask.Result;
 
-                var awayTeamName = teams
-                    .Where(t => t.TeamId == matchDataModel.AwayTeamId)
-                    .Select(t => t.TeamName)
-                    .First();
+            var matchesPerDate = GroupMatchesByDate(matchDataModels, teams);
 
-                matchViewModels.Add
-                (
-                    new MatchViewModel()
-                    {
-                        MatchId = matchDataModel.MatchId,
-                        RoundId = matchDataModel.RoundId,
-                        HomeTeamId = matchDataModel.HomeTeamId,
-                        HomeTeamName = homeTeamName,
-                        AwayTeamId = matchDataModel.AwayTeamId,
-                        AwayTeamName = awayTeamName,
-                        MatchDate = matchDataModel.MatchDate,
-                        Venue = matchDataModel.Venue,
-                        Completed = matchDataModel.Completed,
-                        WinnerTeamId = matchDataModel.WinnerTeamId,
-                        HomeGoals = matchDataModel.HomeGoals,
-                        HomeBehinds = matchDataModel.HomeBehinds,
-                        HomeScore = matchDataModel.HomeScore,
-                        AwayGoals = matchDataModel.AwayGoals,
-                        AwayBehinds = matchDataModel.AwayBehinds,
-                        AwayScore = matchDataModel.AwayScore
-                    }
-                );
-            }
-
-            return matchViewModels;
+            return matchesPerDate;
         }
 
         public async Task UpdateFixture()
@@ -95,6 +65,64 @@ namespace AFLTips.Server.Services
             var fixture = JsonConvert.DeserializeObject<AFLFixture>(allGames);
 
             await _fixtureRepository.UpsertFixture(fixture);
+        }
+
+        private static List<GroupedMatches> GroupMatchesByDate(List<Match> matchDataModels, List<Team> teams)
+        {
+            var matchesGroupedByDate = matchDataModels
+                .OrderBy(m => m.MatchDate)
+                .GroupBy(m => m.MatchDate.Date)
+                .ToList();
+
+            var totalGroupedMatches = new List<GroupedMatches>();
+
+            foreach (var matchesPerDate in matchesGroupedByDate)
+            {
+                var groupedMatches = new GroupedMatches()
+                {
+                    MatchDate = matchesPerDate.Key,
+                    Matches = new List<MatchViewModel>()
+                };
+
+                foreach (var match in matchesPerDate)
+                {
+                    var homeTeamName = teams
+                        .Where(t => t.TeamId == match.HomeTeamId)
+                        .Select(t => t.TeamName)
+                        .First();
+
+                    var awayTeamName = teams
+                        .Where(t => t.TeamId == match.AwayTeamId)
+                        .Select(t => t.TeamName)
+                        .First();
+
+                    groupedMatches.Matches.Add(
+                        new MatchViewModel()
+                        {
+                            MatchId = match.MatchId,
+                            RoundId = match.RoundId,
+                            HomeTeamId = match.HomeTeamId,
+                            HomeTeamName = homeTeamName,
+                            AwayTeamId = match.AwayTeamId,
+                            AwayTeamName = awayTeamName,
+                            MatchDate = match.MatchDate,
+                            Venue = match.Venue,
+                            Completed = match.Completed,
+                            WinnerTeamId = match.WinnerTeamId,
+                            HomeGoals = match.HomeGoals,
+                            HomeBehinds = match.HomeBehinds,
+                            HomeScore = match.HomeScore,
+                            AwayGoals = match.AwayGoals,
+                            AwayBehinds = match.AwayBehinds,
+                            AwayScore = match.AwayScore
+                        }
+                    );
+                }
+
+                totalGroupedMatches.Add(groupedMatches);
+            }
+
+            return totalGroupedMatches;
         }
     }
 }

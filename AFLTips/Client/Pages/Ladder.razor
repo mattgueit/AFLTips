@@ -6,7 +6,9 @@
 
 @if (ladder == null)
 {
-    <p><em>Loading...</em></p>
+    <div class="spinner-border" role="status" style="left: 50%;">
+        <span class="sr-only">Loading...</span>
+    </div>
 }
 else
 {
@@ -16,6 +18,7 @@ else
                 <tr>
                     <th />
                     <th />
+                    <th>P</th>
                     <th>W</th>
                     <th>D</th>
                     <th>L</th>
@@ -26,7 +29,8 @@ else
                 {
                     <tr>
                         <th>@position.Rank</th>
-                        <th><img src="/images/team-logos/@(position.TeamId).png" alt="Image" width="40" height="40"> @position.TeamName</th>
+                        <th><img src="/images/team-logos/@(position.TeamId).png" alt="Image" width="35" height="35"> @position.TeamName</th>
+                        <th>@position.GamesPlayed</th>
                         <th>@position.Wins</th>
                         <th>@position.Draws</th>
                         <th>@position.Losses</th>

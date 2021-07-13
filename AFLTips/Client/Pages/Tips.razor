@@ -6,54 +6,82 @@
 
 @if (currentRound == 0 || players == null)
 {
-    <p><em>Loading...</em></p>
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
 }
 else
 {
-    <h1>Tips for Round @currentRound</h1>
-
-    <div class="container mt-4">
-        <div class="row justify-content-around">
-            <div class="col-12">
-                <form>
-                    <div class="form-group">
-                        <select class="form-select" aria-label="player select">
-                            @foreach (var player in players)
-                            {
-                            Player:
-                                <option value="@player.PlayerId">@player.PlayerName</option>
-                            }
-                        </select>
+    <div class="container mt-4 mb-4">
+        <div class="justify-content-around col-12">
+            <form>
+                <div class="row justify-content-center mb-3">
+                    <select class="selectpicker form-control col-6" aria-label="player select">
+                        @foreach (var player in players)
+                        {
+                            <option value="@player.PlayerId">@player.PlayerName</option>
+                        }
+                    </select>
+                </div>
+                <!-- Round -->
+                <div class="col-12">
+                    <h4 class="text-center">Round @currentRound</h4>
+                </div>
+                @foreach (var matchGroup in groupedMatches)
+                {
+                    <!-- Date headers -->
+                    <div class="col-12">
+                        <h5 class="text-center">@matchGroup.MatchDate.ToString("dddd, MMMM dd")</h5>
+                        <hr />
                     </div>
-                    @foreach (var match in matches)
+
+                    @foreach (var match in matchGroup.Matches)
                     {
-                        <div class="input-group mb-25">
-                            <div class="form-check form-check-inline justify-content-start mb-10">
-                                <label class="form-check-label" for="inlineCheckBox @match.HomeTeamId">@match.HomeTeamName</label>
-                                <img src="/images/team-logos/@(match.HomeTeamId).png" alt="Image" width="40" height="40">
-                                <input class="form-check-input" type="radio" name="tip-@match.HomeTeamId-@match.AwayTeamId" id="inlineCheckBox-@match.HomeTeamId" value="@match.HomeTeamId">
+                        <div class="input-group justify-content-center">
+                            <!-- Home team -->
+                            <div class="form-check form-check-inline justify-content-end col-3">
+                                <label class="form-check-label" for="inlineCheckBox">@match.HomeTeamName</label>
+                                <img class="ml-3" src="/images/team-logos/@(match.HomeTeamId).png" alt="Image" width="30" height="30">
+                                <input class="form-check-input ml-5" type="radio" name="tip-@match.HomeTeamId-@match.AwayTeamId" id="inlineCheckBox" value="@match.HomeTeamId">
                             </div>
 
-                            <div class="form-check form-check-inline justify-content-end">
-                                <input class="form-check-input" type="radio" name="tip-@match.HomeTeamId-@match.AwayTeamId" id="inlineCheckBox-@match.AwayTeamId" value="@match.AwayTeamId">
-                                <img src="/images/team-logos/@(match.AwayTeamId).png" alt="Image" width="40" height="40">
-                                <label class="form-check-label" for="inlineCheckBox-@match.AwayTeamId">@match.AwayTeamName</label>
+                            <!-- Venue & time -->
+                            <div class="col-2">
+                                <div class="col-12 text-center"><small class="text-muted">@match.Venue</small></div>
+                                <div class="col-12 text-center"><small class="text-muted">@match.MatchDate.ToString("hh:mm tt")</small></div>
+                            </div>
+
+                            <!-- Away team -->
+                            <div class="form-check form-check-inline justify-content-start col-3">
+                                <input class="form-check-input mr-5" type="radio" name="tip-@match.HomeTeamId-@match.AwayTeamId" id="inlineCheckBox" value="@match.AwayTeamId">
+                                <img class="mr-3" src="/images/team-logos/@(match.AwayTeamId).png" alt="Image" width="30" height="30">
+                                <label class="form-check-label" for="inlineCheckBox">@match.AwayTeamName</label>
                             </div>
 
                         </div>
-                        <br/>
+                        <br />
                     }
+
+                }
+                <div class="row justify-content-center">
+                    <div class="col-10"></div>
                     <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
+
+    <style>
+        #inlineCheckBox {
+            transform: scale(1.3)
+        }
+    </style>
 }
 
 @code {
     private int currentRound;
     private List<data.Player> players;
-    private List<view.MatchViewModel> matches;
+    private List<view.GroupedMatches> groupedMatches;
 
     protected async override Task OnInitializedAsync()
     {
@@ -65,6 +93,6 @@ else
         currentRound = getCurrentRoundTask.Result;
         players = getPlayersTask.Result;
 
-        matches = await Http.GetFromJsonAsync<List<view.MatchViewModel>>($"api/fixture/matchesByRound?RoundId={currentRound}");
+        groupedMatches = await Http.GetFromJsonAsync<List<view.GroupedMatches>>($"api/fixture/groupedMatchesByRound?RoundId={currentRound}");
     }
 }
