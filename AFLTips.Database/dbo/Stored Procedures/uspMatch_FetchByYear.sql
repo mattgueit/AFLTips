@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [dbo].[uspMatch_FetchAll]
+﻿CREATE PROCEDURE [dbo].[uspMatch_FetchByYear]
+	@Year INT
 AS
 BEGIN
 
@@ -19,5 +20,5 @@ BEGIN
 		AwayScore,
 		DateUpdated
 	FROM [dbo].[Match]
-
+	WHERE YEAR(MatchDate) = @Year
 END

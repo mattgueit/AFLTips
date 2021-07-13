@@ -78,7 +78,7 @@
     <Build Include="dbo\Tables\Tip.sql" />
     <Build Include="Security\Data.sql" />
     <Build Include="dbo\Stored Procedures\uspPlayer_FetchAll.sql" />
-    <Build Include="dbo\Stored Procedures\uspMatch_FetchAll.sql" />
+    <Build Include="dbo\Stored Procedures\uspMatch_FetchByYear.sql" />
     <Build Include="dbo\User Defined Types\udtMatchTableType.sql" />
     <Build Include="dbo\Functions\HomeOrAwayTeamExists.sql" />
     <Build Include="dbo\Stored Procedures\uspTip_Fetch.sql" />

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AFLTips.Server.Handlers;
 using AFLTips.Server.Services.Interfaces;
 using AFLTips.Shared.DataModels;
 using Microsoft.AspNetCore.Mvc;
@@ -10,26 +11,32 @@ namespace AFLTips.Server.Controllers
     [Route("api/[controller]")]
     public class LadderController : ControllerBase
     {
-        private readonly ILogger<LadderController> _logger;
         private readonly ILadderService _ladderService;
+        private readonly ExceptionHandler _exceptionHandler;
 
         public LadderController
         (
-            ILogger<LadderController> logger,
-            ILadderService ladderService
+            ILadderService ladderService,
+            ExceptionHandler exceptionHandler
         )
         {
-            _logger = logger;
             _ladderService = ladderService;
+            _exceptionHandler = exceptionHandler;
         }
 
         // api/ladder
         [HttpGet]
-        public async Task<ActionResult<Ladder>> Get()
+        public Task<IActionResult> Get()
+        {
+            return _exceptionHandler.CatchExceptionsAsync(GetInternal);
+        }
+
+        private async Task<IActionResult> GetInternal()
         {
             var ladder = await _ladderService.GetLadder();
 
             return Ok(ladder);
         }
+
     }
 }

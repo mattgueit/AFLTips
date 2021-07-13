@@ -39,7 +39,7 @@ namespace AFLTips.UnitTests
 
             var fixture = GenerateAFLFixture(roundAndDatePairs);
             _fixtureRepository
-                .GetFixture()
+                .GetFixtureByYear(Arg.Any<int>())
                 .Returns(fixture);
 
             _dateTimeProvider.DateTimeNow.Returns(new DateTime(2021, 1, 1));
@@ -63,7 +63,7 @@ namespace AFLTips.UnitTests
 
             var fixture = GenerateAFLFixture(roundAndDatePairs);
             _fixtureRepository
-                .GetFixture()
+                .GetFixtureByYear(Arg.Any<int>())
                 .Returns(fixture);
 
             _dateTimeProvider.DateTimeNow.Returns(new DateTime(2021, 6, 15));
@@ -87,7 +87,7 @@ namespace AFLTips.UnitTests
 
             var fixture = GenerateAFLFixture(roundAndDatePairs);
             _fixtureRepository
-                .GetFixture()
+                .GetFixtureByYear(Arg.Any<int>())
                 .Returns(fixture);
 
             _dateTimeProvider.DateTimeNow.Returns(new DateTime(2021, 6, 26));
@@ -111,7 +111,7 @@ namespace AFLTips.UnitTests
 
             var fixture = GenerateAFLFixture(roundAndDatePairs);
             _fixtureRepository
-                .GetFixture()
+                .GetFixtureByYear(Arg.Any<int>())
                 .Returns(fixture);
 
             _dateTimeProvider.DateTimeNow.Returns(new DateTime(2021, 11, 22));

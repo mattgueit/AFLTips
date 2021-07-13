@@ -33,7 +33,7 @@ namespace AFLTips.Server.Services
 
         public async Task<int> GetCurrentRound()
         {
-            var fixture =  await _fixtureRepository.GetFixture();
+            var fixture =  await _fixtureRepository.GetFixtureByYear(_dateTimeProvider.DateTimeNow.Year);
 
             var roundId = fixture.Matches
                 .Where(m => m.MatchDate >= _dateTimeProvider.DateTimeNow)

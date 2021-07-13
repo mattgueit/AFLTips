@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AFLTips.Server.Handlers;
 
 namespace AFLTips.Server
 {
@@ -37,6 +38,7 @@ namespace AFLTips.Server
 
 
             // DI registrations
+            services.AddTransient<ExceptionHandler>();
             services.AddTransient<IFixtureService, FixtureService>();
             services.AddTransient<ILadderService, LadderService>();
             services.AddTransient<IPlayerService, PlayerService>();

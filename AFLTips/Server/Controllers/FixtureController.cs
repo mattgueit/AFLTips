@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AFLTips.Server.Handlers;
 using AFLTips.Server.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -10,24 +11,29 @@ namespace AFLTips.Server.Controllers
     [Route("api/[controller]")]
     public class FixtureController : ControllerBase
     {
-        private readonly ILogger<FixtureController> _logger;
         private readonly IFixtureService _fixtureService;
+        private readonly ExceptionHandler _exceptionHandler;
 
         public FixtureController
         (
-            ILogger<FixtureController> logger,
-            IFixtureService fixtureService
+            IFixtureService fixtureService,
+            ExceptionHandler exceptionHandler
         )
         {
-            _logger = logger;
             _fixtureService = fixtureService;
+            _exceptionHandler = exceptionHandler;
         }
 
         // api/fixture/currentRound
         [HttpGet("currentRound")]
-        public async Task<IActionResult> GetCurrentRound()
+        public Task<IActionResult> GetCurrentRound()
         {
-            var dateTimeNow = DateTime.Now;
+            return _exceptionHandler.CatchExceptionsAsync(GetCurrentRoundInternal);
+
+        }
+
+        private async Task<IActionResult> GetCurrentRoundInternal()
+        {
             var currentRoundId = await _fixtureService.GetCurrentRound();
 
             return Ok(currentRoundId);
@@ -35,7 +41,12 @@ namespace AFLTips.Server.Controllers
 
         // api/fixture/groupedMatchesByRound
         [HttpGet("groupedMatchesByRound")]
-        public async Task<IActionResult> GetGroupedMatchesByRound(int roundId)
+        public Task<IActionResult> GetGroupedMatchesByRound(int roundId)
+        {
+            return _exceptionHandler.CatchExceptionsAsync(GetGroupedMatchesByRoundInternal, roundId);
+        }
+
+        private async Task<IActionResult> GetGroupedMatchesByRoundInternal(int roundId)
         {
             var matches = await _fixtureService.GetGroupedMatchesByRound(roundId);
 
@@ -44,7 +55,12 @@ namespace AFLTips.Server.Controllers
 
         // api/fixture/update
         [HttpGet("update")]
-        public async Task<IActionResult> UpdateFixture()
+        public Task<IActionResult> UpdateFixture()
+        {
+            return _exceptionHandler.CatchExceptionsAsync(UpdateFixtureInternal);
+        }
+
+        private async Task<IActionResult> UpdateFixtureInternal()
         {
             await _fixtureService.UpdateFixture();
 

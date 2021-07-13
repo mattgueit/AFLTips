@@ -8,6 +8,7 @@ using AFLTips.Server.Providers.Interfaces;
 using AFLTips.Server.Repositories.Interfaces;
 using AFLTips.Shared.Config;
 using AFLTips.Shared.DataModels;
+using AFLTips.Shared.Exceptions;
 using Dapper;
 
 namespace AFLTips.Server.Repositories
@@ -23,13 +24,14 @@ namespace AFLTips.Server.Repositories
             _dateTimeProvider = dateTimeProvider;
         }
 
-        public async Task<AFLFixture> GetFixture()
+        public async Task<AFLFixture> GetFixtureByYear(int year)
         {
             var fixture = new AFLFixture();
+            var parameters = new DynamicParameters(new { Year = year });
 
             using (IDbConnection db = new SqlConnection(_sqlConfig.ConnectionString))
             {
-                var matches = await db.QueryAsync<Match>("[dbo].[uspMatch_FetchAll]", commandType: CommandType.StoredProcedure);
+                var matches = await db.QueryAsync<Match>("[dbo].[uspMatch_FetchByYear]", parameters, commandType: CommandType.StoredProcedure);
                 fixture.Matches = matches.ToList();
             }
 

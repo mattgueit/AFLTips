@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AFLTips.Server.Handlers;
 using AFLTips.Server.Services.Interfaces;
 using AFLTips.Shared.DataModels;
 using Microsoft.AspNetCore.Mvc;
@@ -11,22 +12,27 @@ namespace AFLTips.Server.Controllers
     [Route("api/[controller]")]
     public class TipController : ControllerBase
     {
-        private readonly ILogger<TipController> _logger;
         private readonly ITipService _tipService;
+        private readonly ExceptionHandler _exceptionHandler;
 
         public TipController
         (
-            ILogger<TipController> logger,
-            ITipService tipService
+            ITipService tipService,
+            ExceptionHandler exceptionHandler
         )
         {
-            _logger = logger;
             _tipService = tipService;
+            _exceptionHandler = exceptionHandler;
         }
 
         // api/tip
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateTips(List<Tip> tips)
+        public Task<IActionResult> UpdateTips(List<Tip> tips)
+        {
+            return _exceptionHandler.CatchExceptionsAsync(UpdateTipsInternal, tips);
+        }
+
+        private async Task<IActionResult> UpdateTipsInternal(List<Tip> tips)
         {
             await _tipService.UpdateTips(tips);
 
@@ -35,7 +41,12 @@ namespace AFLTips.Server.Controllers
 
         // api/tip/scores
         [HttpGet("scores")]
-        public async Task<ActionResult<List<TippingScore>>> GetTippingScores()
+        public Task<IActionResult> GetTippingScores()
+        {
+            return _exceptionHandler.CatchExceptionsAsync(GetTippingScoresInternal);
+        }
+
+        private async Task<IActionResult> GetTippingScoresInternal()
         {
             var overallScores = await _tipService.GetTippingScores();
 
