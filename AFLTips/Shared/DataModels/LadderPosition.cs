@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace AFLTips.Shared.DataModels
@@ -26,8 +27,9 @@ namespace AFLTips.Shared.DataModels
         [JsonProperty("pts")]
         public int Points { get; set; }
 
+        private decimal percentage;
         [JsonProperty("percentage")]
-        public decimal Percentage { get; set; }
+        public decimal Percentage { get => percentage; set => percentage = Math.Round(value, 2); }
 
         [JsonProperty("played")]
         public int GamesPlayed { get; set; }

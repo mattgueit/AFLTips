@@ -42,7 +42,6 @@ namespace AFLTips.Server.Controllers
             return Ok(matches);
         }
 
-
         // api/fixture/update
         [HttpGet("update")]
         public async Task<IActionResult> UpdateFixture()
