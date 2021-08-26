@@ -12,10 +12,10 @@ namespace AFLTips.Shared.DataModels
         public int RoundId { get; set; }
 
         [JsonProperty("hteamid")]
-        public int HomeTeamId { get; set; }
+        public int? HomeTeamId { get; set; }
 
         [JsonProperty("ateamid")]
-        public int AwayTeamId { get; set; }
+        public int? AwayTeamId { get; set; }
 
         [JsonProperty("date")]
         public DateTime MatchDate { get; set; }

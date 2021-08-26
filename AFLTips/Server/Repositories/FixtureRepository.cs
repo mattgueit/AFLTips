@@ -8,7 +8,6 @@ using AFLTips.Server.Providers.Interfaces;
 using AFLTips.Server.Repositories.Interfaces;
 using AFLTips.Shared.Config;
 using AFLTips.Shared.DataModels;
-using AFLTips.Shared.Exceptions;
 using Dapper;
 
 namespace AFLTips.Server.Repositories

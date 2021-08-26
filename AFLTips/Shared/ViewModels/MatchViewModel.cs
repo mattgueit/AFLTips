@@ -6,9 +6,9 @@ namespace AFLTips.Shared.ViewModels
     {
         public int MatchId { get; set; }
         public int RoundId { get; set; }
-        public int HomeTeamId { get; set; }
+        public int? HomeTeamId { get; set; }
         public string HomeTeamName { get; set; }
-        public int AwayTeamId { get; set; }
+        public int? AwayTeamId { get; set; }
         public string AwayTeamName { get; set; }
         public DateTime MatchDate { get; set; }
         public string Venue { get; set; }
